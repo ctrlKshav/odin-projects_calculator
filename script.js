@@ -44,7 +44,6 @@ const digitClicked=function(event){
 }
 const operatorClicked=function(event){
     opTemp=event.target.textContent
-    opFlag=true
     if(opTemp==='AC'){
         operand1='',operand2='',operator=undefined;
         opTemp=undefined,ansTemp=undefined
@@ -64,8 +63,16 @@ const operatorClicked=function(event){
     else{
         if(eqFlag)
             operand1=ansTemp;
-        display.textContent=opTemp
+        else if(opFlag){
+            ansTemp=operate(operand1,operand2,operator)
+            display.textContent=ansTemp
+            operand1=ansTemp
+            operand2=''
+        }
+        // display.textContent=opTemp
         operator=opTemp
+        opFlag=true
+
     }
     // console.log(eqFlag);
     
