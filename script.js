@@ -27,31 +27,44 @@ display=document.querySelector('.display')
 digitBtns=document.querySelectorAll('.numbers .btn')
 operatorBtns=document.querySelectorAll('.operators .btn')
 let operand1,operand2,operator;
-let temp;
+let opTemp,ansTemp;
+let flag=false
 
 const digitClicked=function(event){
-    temp=event.target.textContent
-    display.textContent=temp
+    opTemp=event.target.textContent
+    display.textContent=opTemp
 
     if(operand1!==undefined)
-        operand2=Number(temp)
+        operand2=Number(opTemp)
     else
-        operand1=Number(temp)
+        operand1=Number(opTemp)
 }
 const operatorClicked=function(event){
-    temp=event.target.textContent
+    opTemp=event.target.textContent
     
-    if(temp==='='){
+    if(opTemp==='AC'){
+        operand1=undefined,operand2=undefined,operator=undefined;
+        opTemp=undefined,ansTemp=undefined
+        flag=false;
+        display.innerHTML='&nbsp;'
+    }
+
+    else if(opTemp==='='){
         // console.log(operand1,operand2,operator);
         // console.log(operation(operand1,operand2,operator));
-        ans=operation(operand1,operand2,operator)
-        display.textContent=ans
+        ansTemp=operation(operand1,operand2,operator)
+        display.textContent=ansTemp
         operand1=undefined,operand2=undefined,operator=undefined;
+        flag=true
     }
-    else
-        display.textContent=temp
-        operator=temp
-
+    else{
+        if(flag)
+            operand1=ansTemp;
+        display.textContent=opTemp
+        operator=opTemp
+    }
+    // console.log(flag);
+    
 }
 
 digitBtns.forEach(button => {
