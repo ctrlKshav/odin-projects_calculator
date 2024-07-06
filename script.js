@@ -10,29 +10,54 @@ function multiplyTwoNumbers(op1,op2){
 function divideTwoNumbers(op1,op2){
     return op1/op2;
 }
-
-let operand1,operand2,operator;
 function operation(op1,op2,opr){
     if(opr==='+')
-        addTwoNumbers(op1,op2)
+        return addTwoNumbers(op1,op2)
     else if(opr==='-')
-        subtractTwoNumbers(op1,op2)
+        return subtractTwoNumbers(op1,op2)
     else if(opr==='*')
-        multiplyTwoNumbers(op1,op2)
+        return multiplyTwoNumbers(op1,op2)
     else if(opr==='/')
-        divideTwoNumbers(op1,op2)
+        return divideTwoNumbers(op1,op2)
     else
         return 'invalid'
 }
 
-
 display=document.querySelector('.display')
-buttons=document.querySelectorAll('.btn')
-let value;
-buttons.forEach(button => {
-    button.addEventListener('click',(e)=>{
-        value=e.target.textContent
-        display.textContent=value
-    })
+digitBtns=document.querySelectorAll('.numbers .btn')
+operatorBtns=document.querySelectorAll('.operators .btn')
+let operand1,operand2,operator;
+let temp;
+
+const digitClicked=function(event){
+    temp=event.target.textContent
+    display.textContent=temp
+
+    if(operand1)
+        operand2=Number(temp)
+    else
+        operand1=Number(temp)
+}
+const operatorClicked=function(event){
+    temp=event.target.textContent
     
+    if(temp==='='){
+        // console.log(operand1,operand2,operator);
+        // console.log(operation(operand1,operand2,operator));
+        ans=operation(operand1,operand2,operator)
+        display.textContent=ans
+    }
+    else
+        display.textContent=temp
+        operator=temp
+
+}
+
+digitBtns.forEach(button => {
+    button.addEventListener('click',digitClicked);
 });
+
+operatorBtns.forEach(button => {
+    button.addEventListener('click',operatorClicked);
+});
+
