@@ -25,3 +25,14 @@ function operation(op1,op2,opr){
         return 'invalid'
 }
 
+
+display=document.querySelector('.display')
+buttons=document.querySelectorAll('.btn')
+let value;
+buttons.forEach(button => {
+    button.addEventListener('click',(e)=>{
+        value=e.target.textContent
+        display.textContent=value
+    })
+    
+});
