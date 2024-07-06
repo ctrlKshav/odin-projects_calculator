@@ -33,7 +33,7 @@ const digitClicked=function(event){
     temp=event.target.textContent
     display.textContent=temp
 
-    if(operand1)
+    if(operand1!==undefined)
         operand2=Number(temp)
     else
         operand1=Number(temp)
@@ -46,6 +46,7 @@ const operatorClicked=function(event){
         // console.log(operation(operand1,operand2,operator));
         ans=operation(operand1,operand2,operator)
         display.textContent=ans
+        operand1=undefined,operand2=undefined,operator=undefined;
     }
     else
         display.textContent=temp
