@@ -41,8 +41,12 @@ let eqFlag=false,opFlag=false,dtFlag=false
 let op1Pressed,op2Pressed,operatorPressed;
 
 const digitClicked=function(event){
+    if(event.key===undefined)
+        opTemp=event.target.textContent
+    else
+        opTemp=event.key
+
     operatorPressed=false
-    opTemp=event.target.textContent
     if(eqFlag){
         operand1='',operand2='',operator=undefined;
         ansTemp=undefined
@@ -64,10 +68,15 @@ const digitClicked=function(event){
 
 }
 const operatorClicked=function(event){
+    if(event.key===undefined)
+        opTemp=event.target.textContent
+    else
+        opTemp=event.key
     op1Pressed=false
     op2Pressed=false
     operatorPressed=true
-    opTemp=event.target.textContent
+    console.log(opTemp);
+    
     if(opTemp==='AC'){
         operand1='',operand2='',operator=undefined;
         opTemp=undefined,ansTemp=undefined
@@ -129,6 +138,7 @@ operatorBtns.forEach(button => {
 
 backspace=document.querySelector('#bak')
 backspace.addEventListener('click',(event)=>{
+    
     if(op1Pressed){
         operand1=operand1.slice(0,-1)
         display.textContent=operand1
@@ -152,3 +162,25 @@ backspace.addEventListener('click',(event)=>{
         display.innerHTML='&nbsp;'
     }
 })
+
+//Apparently keypress only detects printable keys that's why i have used keydown
+document.addEventListener('keydown',(event)=>{
+    console.log(event);
+    operators=['+','-','*','/','.','=']
+    digits=['0','1','2','3','4','5','6','7','8','9']
+    
+    keyPressed=event.key    
+    if(digits.includes(keyPressed))
+        digitClicked(event)
+    else if(operators.includes(keyPressed))
+        operatorClicked(event)
+    else if(keyPressed==='Enter')
+        operatorClicked({key:'AC'})//workaround
+    
+    else if(keyPressed==='Backspace')
+        backspace.click()
+    else
+        console.log('move on');
+        
+
+});
