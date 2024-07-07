@@ -43,6 +43,13 @@ let op1Pressed,op2Pressed,operatorPressed;
 const digitClicked=function(event){
     operatorPressed=false
     opTemp=event.target.textContent
+    if(eqFlag){
+        operand1='',operand2='',operator=undefined;
+        ansTemp=undefined
+        eqFlag=false;
+        opFlag=false
+        dot.disabled=false
+    }
     
     if(operand1!=='' && opFlag){
         operand2+=(opTemp)
@@ -68,7 +75,6 @@ const operatorClicked=function(event){
         display.innerHTML='&nbsp;'
         opFlag=false
         dot.disabled=false
-
     }
 
     else if(opTemp==='='){
@@ -106,6 +112,7 @@ const operatorClicked=function(event){
         operator=opTemp
         opFlag=true
         dot.disabled=false
+        eqFlag=false
 
     }
     // console.log(eqFlag);
