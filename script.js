@@ -14,13 +14,13 @@ function operate(op1,op2,opr){
     if(op1==='' || op2==='' || opr==='')
         return 'Syntax Error'
     if(opr==='+')
-        return addTwoNumbers(op1,op2)
+        return Number((addTwoNumbers(op1,op2)).toFixed(2))
     else if(opr==='-')
-        return subtractTwoNumbers(op1,op2)
+        return Number((subtractTwoNumbers(op1,op2)).toFixed(2))
     else if(opr==='*')
-        return multiplyTwoNumbers(op1,op2)
+        return Number((multiplyTwoNumbers(op1,op2)).toFixed(2))
     else if(opr==='/')
-        return divideTwoNumbers(op1,op2)
+        return Number((divideTwoNumbers(op1,op2)).toFixed(2))
     else
         return 'Syntax Error'
 }
