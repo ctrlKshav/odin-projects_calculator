@@ -24,13 +24,20 @@ function operate(op1,op2,opr){
     else
         return 'Syntax Error'
 }
+dot=document.querySelector('#dot')
+const toggleDot=function(){
+    if(dot.disabled)
+        dot.disabled=false
+    else
+        dot.disabled=true
+}
 
 display=document.querySelector('.display')
 digitBtns=document.querySelectorAll('.numbers .btn')
 operatorBtns=document.querySelectorAll('.operators .btn')
 let operand1='',operand2='',operator;
 let opTemp,ansTemp;
-let eqFlag=false,opFlag=false
+let eqFlag=false,opFlag=false,dtFlag=false
 
 const digitClicked=function(event){
     opTemp=event.target.textContent
@@ -43,6 +50,7 @@ const digitClicked=function(event){
         operand1+=(opTemp)
         display.textContent=operand1
     }
+
 }
 const operatorClicked=function(event){
     opTemp=event.target.textContent
@@ -52,6 +60,8 @@ const operatorClicked=function(event){
         eqFlag=false;
         display.innerHTML='&nbsp;'
         opFlag=false
+        dot.disabled=false
+
     }
 
     else if(opTemp==='='){
@@ -61,8 +71,10 @@ const operatorClicked=function(event){
         display.textContent=ansTemp
         operand1="",operand2="",operator=undefined;
         eqFlag=true
+        dot.disabled=true
     }
     else if(opTemp==='.'){
+        dtFlag=true;
         if(opFlag){
             operand2+='.'
             display.textContent=operand2
@@ -71,6 +83,7 @@ const operatorClicked=function(event){
             operand1+='.'
             display.textContent=operand1
         }
+        dot.disabled=true
     }
 
     else{
@@ -85,6 +98,7 @@ const operatorClicked=function(event){
         // display.textContent=opTemp
         operator=opTemp
         opFlag=true
+        dot.disabled=false
 
     }
     // console.log(eqFlag);
