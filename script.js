@@ -8,9 +8,11 @@ function multiplyTwoNumbers(op1,op2){
     return Number(op1)*Number(op2);
 }
 function divideTwoNumbers(op1,op2){
-    return Number(op1)/Number(op2);
+    return op2=='0'?'Congrats! You just broke the fabric of reality':Number(op1)/Number(op2);
 }
 function operate(op1,op2,opr){
+    if(op1==='' || op2==='' || opr==='')
+        return 'Syntax Error'
     if(opr==='+')
         return addTwoNumbers(op1,op2)
     else if(opr==='-')
@@ -20,7 +22,7 @@ function operate(op1,op2,opr){
     else if(opr==='/')
         return divideTwoNumbers(op1,op2)
     else
-        return 'invalid'
+        return 'Syntax Error'
 }
 
 display=document.querySelector('.display')
@@ -60,6 +62,17 @@ const operatorClicked=function(event){
         operand1="",operand2="",operator=undefined;
         eqFlag=true
     }
+    else if(opTemp==='.'){
+        if(opFlag){
+            operand2+='.'
+            display.textContent=operand2
+        }
+        else {
+            operand1+='.'
+            display.textContent=operand1
+        }
+    }
+
     else{
         if(eqFlag)
             operand1=ansTemp;
