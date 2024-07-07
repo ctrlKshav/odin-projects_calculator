@@ -38,21 +38,28 @@ operatorBtns=document.querySelectorAll('.operators .btn')
 let operand1='',operand2='',operator;
 let opTemp,ansTemp;
 let eqFlag=false,opFlag=false,dtFlag=false
+let op1Pressed,op2Pressed,operatorPressed;
 
 const digitClicked=function(event){
+    operatorPressed=false
     opTemp=event.target.textContent
     
     if(operand1!=='' && opFlag){
         operand2+=(opTemp)
         display.textContent=operand2
+        op2Pressed=true
     }
     else{
         operand1+=(opTemp)
         display.textContent=operand1
+        op1Pressed=true
     }
 
 }
 const operatorClicked=function(event){
+    op1Pressed=false
+    op2Pressed=false
+    operatorPressed=true
     opTemp=event.target.textContent
     if(opTemp==='AC'){
         operand1='',operand2='',operator=undefined;
@@ -113,3 +120,28 @@ operatorBtns.forEach(button => {
     button.addEventListener('click',operatorClicked);
 });
 
+backspace=document.querySelector('#bak')
+backspace.addEventListener('click',(event)=>{
+    if(op1Pressed){
+        operand1=operand1.slice(0,-1)
+        display.textContent=operand1
+        // console.log('test1');
+        
+    }
+    else if(op2Pressed){
+       operand2= operand2.slice(0,-1)
+       display.textContent=operand2
+
+        // console.log('test2');
+
+    }
+    else if(operatorPressed){
+        operator=operator.slice(0,-1)
+        display.textContent=operator
+
+        // console.log('test3');
+    }
+    else{
+        display.innerHTML='&nbsp;'
+    }
+})
